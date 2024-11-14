@@ -1,313 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>VFH: f2f entrance only</title>
-   <style>
-       body {
-           font-family: monospace;
-           color: #e0e0e0;
-           background-color: #1a1a1a;
-           margin: 0;
-           padding: 0;
-       }
-       header {
-           background-color: #242424;
-           color: #00ff7f;
-           padding: 30px 20px;
-           text-align: center;
-           font-size: 1.2em;
-       }
-       header h1 {
-           font-size: 2em;
-           margin: 0;
-       }
-       .hero {
-           padding: 20px;
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-       }
-       .cta-button {
-           background-color: #ff4500;
-           color: #fff;
-           padding: 10px 20px;
-           text-decoration: none;
-           font-weight: bold;
-           border-radius: 5px;
-           margin-top: 10px;
-           transition: 0.3s;
-       }
-       .cta-button:hover {
-           background-color: #ffa500;
-       }
-       .section {
-           padding: 20px;
-           max-width: 1400px;
-           margin: auto;
-       }
-       .member-count, .activity-feed .trust-content{
-           background-color: #2a2a2a;
-           border-left: 5px solid #00ff7f;
-           padding: 10px;
-           margin: 20px 0;
-           position: relative;
-           overflow: hidden;
-       }
-       .exclusive .trust-content{
-           background-color: #333;
-           padding: 15px;
-           border-left: 5px solid #ff4500;
-           margin: 10px 0;
-       }
-       .exclusive-content {
-           color: #ff6347;
-       }
-       footer {
-           background-color: #222;
-           color: #ccc;
-           text-align: center;
-           padding: 10px;
-       }
-       .animated-number {
-           font-size: 1.5em;
-           color: #00ff7f;
-           font-weight: bold;
-           text-shadow: 0px 0px 10px #00ff7f;
-       }
-       /* Registration form styling */
-       #registration-form {
-           display: none;
-           background-color: #2a2a2a;
-           padding: 20px;
-           border-radius: 10px;
-           max-width: 400px;
-           margin: 20px auto;
-           text-align: center;
-       }
-       #registration-form input[type="text"], #registration-form input[type="email"] {
-           padding: 10px;
-           width: calc(100% - 20px);
-           margin-bottom: 10px;
-           border: 1px solid #ccc;
-           border-radius: 5px;
-           font-size: 1em;
-       }
-       #registration-form button {
-           background-color: #ff4500;
-           color: #fff;
-           padding: 10px 20px;
-           border: none;
-           border-radius: 5px;
-           cursor: pointer;
-           font-size: 1em;
-           margin-top: 10px;
-       }
-       #registration-form button:hover {
-           background-color: #ffa500;
-       }
-       .more-content-hint {
-       color: #888;
-       font-style: italic;
-       margin-top: 15px;
-       opacity: 0.7;
-       }
-      
-       .more-content-hint:hover {
-           opacity: 1;
-       }
-   </style>
-</head>
-<body>
+const express = require('express');
+const cors = require('cors'); // Import CORS for cross-origin requests
+const axios = require('axios'); // Import Axios for making HTTP requests
+const app = express();
+const PORT = 3000;
 
+// Enable CORS for all requests
+app.use(cors());
 
-<header>
-   <h1>VFH: f2f entrance only</h1>
-   <p>Verisign For Human</p>
-</header>
+// Middleware to parse JSON bodies in POST requests
+app.use(express.json());
 
+// Google Apps Script URL (replace with your actual deployment URL)
+const googleScriptURL = 'https://script.google.com/macros/s/AKfycbyC-apO9eANrnr7k-op3F67Snmb_oyNPVbbiaoBCr2AIpqul_FTlolanKN2kC6Qn4sFeA/exec';
 
-<section class="section hero">
-   <p><span class="animated-number" id="member-count">5678</span> participants in the network</p>
-</section>
+// Route to handle email submissions
+app.post('/submit-email', async (req, res) => {
+    const email = req.body.email; // Extract email from request body
+    
+    if (!email) {
+        // Send a 400 response if no email was provided
+        return res.status(400).send('Email is required');
+    }
 
+    try {
+        // Send the email data to Google Sheets via the Apps Script URL
+        const response = await axios.post(googleScriptURL, { email });
+        
+        // Log success message and send response to client
+        console.log('Email sent to Google Sheets:', response.data);
+        res.send('Email saved successfully to Google Sheets');
+    } catch (error) {
+        // Log and send an error message if the request fails
+        console.error('Error sending email to Google Sheets:', error);
+        res.status(500).send('There was an error saving the email to Google Sheets');
+    }
+});
 
-<section class="section member-count">
-   <strong>Community Content</strong>
-   <div id="activity-feed">
-       <p><strong>user_x7T</strong> just dropped: <em>Pick Deep - Think you’re the ultimate deepfake detective? Dive into this 10-minute challenge and put your skills to the test. Spot the fakes before time runs out!</em>
-          <a href="#" onclick="alert('Access Denied: Exclusive to Members')" style="color: #ff6347; text-decoration: underline;">Play Now 🔒</a>
-       </p>
-      
-       <p><strong>user_m3C</strong> unleashed: <em>Truth or Dare - Think you can mimic your friends? Step up to this voice impersonation challenge and see how convincing you can be!</em>
-          <a href="#" onclick="alert('Access Denied: Exclusive to Members')" style="color: #ff6347; text-decoration: underline;">Play Now 🔒</a>
-       </p>
-      
-       <!-- Hint of more content -->
-       <p class="more-content-hint">🔒 More content available for verified members</p>
-   </div>
-</section>
-
-
-<section class="section product-showcase">
-   <strong>The Science of Secure Verification</strong>
-   <p>Our community exchanges and builds upon cutting-edge technology designed to ensure secure, verified interactions. Here’s how it works:</p>
-  
-   <div class="product-content">
-       <h3>Asymmetric Encryption</h3>
-       <p>Using the same proven principles as HTTPS, our system employs asymmetric encryption to verify each member's identity through sound-based communication. Every connection remains private, unique, and unbreakable, protecting personal identity in every interaction.</p>
-      
-       <h3>Sound-Based Identity Verification</h3>
-       <p>By harnessing inaudible sound frequencies, our verification system confirms identities in real time without interrupting the conversation. This zero-trust method continually validates each participant, safeguarding against impersonation and potential security threats.</p>
-      
-       <h3>"VeriSign for Humans"</h3>
-       <p>Much like VeriSign built trust for websites, our technology is establishing a secure identity network for humans. Every interaction stays authentic, creating a trusted digital space where online impersonation is a thing of the past.</p>
-   </div>
-</section>
-
-
-<style>
-   /* Styling for Product Showcase */
-   .product-showcase {
-       background-color: #1a1a1a;
-       color: #e0e0e0;
-       padding: 20px;
-       border-left: 5px solid #00ff7f;
-       margin-top: 20px;
-       border-radius: 8px;
-   }
-
-
-   .product-showcase strong {
-       font-size: 1.5em;
-       color: #00ff7f;
-   }
-
-
-   .product-showcase p {
-       margin-top: 10px;
-       line-height: 1.6;
-   }
-
-
-   .product-content h3 {
-       margin-top: 20px;
-       color: #ff6347;
-       font-size: 1.2em;
-   }
-
-
-   .product-content p {
-       color: #ccc;
-       margin-top: 5px;
-   }
-</style>
-
-
-
-
-
-
-<section class="section member-count">
-   <p><strong>Rules</strong></p>
-   <div id="activity-feed">
-       <p><strong>F2F:</strong> <em>F2F verification only --> Phone to Phone</em></p>
-       <p><strong>Access limits:</strong> <em>Can add only one partisipante per day </em></p>
-       <p><strong>Trust Score:</strong> Each member’s trust score reflects their connection level: direct, face-to-face invites get top scores, while indirect connections score lower. Community Leaders hold elevated scores as verified, trusted members</p>
-      
-       <!-- Visual Aid: Node-based graphic -->
-       <div id="activity-feed">
-           <svg width="300" height="200">
-               <!-- Community Leader node with high trust score -->
-               <circle cx="150" cy="50" r="20" fill="#00ff7f" />
-               <text x="130" y="25" fill="#ffffff">Community Leader</text>
-               <text x="180" y="65" fill="#00ff7f">High Trust</text>
-              
-               <!-- Direct connection node with high score -->
-               <circle cx="80" cy="150" r="15" fill="#00aaff" />
-               <text x="40" y="180" fill="#00aaff">Direct Connection</text>
-              
-               <!-- Indirect connection with lower score -->
-               <circle cx="220" cy="150" r="10" fill="#aaaaaa" />
-               <text x="220" y="180" fill="#aaaaaa">Indirect Connection</text>
-              
-               <!-- Connection lines -->
-               <!-- Line from Community Leader to Direct Connection -->
-               <line x1="135.86" y1="69.14" x2="93.39" y2="132.68" stroke="#00ff7f" stroke-width="2" />
-              
-               <!-- Line from Community Leader to Indirect Connection -->
-               <line x1="164.14" y1="69.14" x2="206.61" y2="132.68" stroke="#aaaaaa" stroke-width="1" />
-           </svg>
-       </div>
-      
-   </div>
-</section>
-
-
-
-
-<footer>
-   <p>VFH &copy; 2024 | <a href="#" onclick="toggleEmailForm()" style="color: #00ff7f;">Contact</a></p>
-</footer>
-
-
-<!-- Email Registration Form -->
-<div id="email-form" style="display: none; background-color: #2a2a2a; padding: 20px; border-radius: 10px; max-width: 400px; margin: 20px auto; text-align: center;">
-   <p>This area is restricted to community members only, but you can try to leave your email.</p>
-   <input type="email" placeholder="Your Email" required style="padding: 10px; width: calc(100% - 20px); margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
-   <button onclick="submitEmail()" style="background-color: #ff4500; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
-</div>
-
-
-<script>
-  // Incrementing member count animation
-const memberCountElem = document.getElementById('member-count');
-let memberCount = parseInt(memberCountElem.innerText);
-
-
-function incrementMemberCount() {
-   memberCount += 1; // מוסיף 1 בכל חצי שעה
-   memberCountElem.innerText = memberCount.toLocaleString();
-   setTimeout(incrementMemberCount, 1800000); // מרווח של חצי שעה (1800000 מילי-שניות)
-}
-incrementMemberCount();
-
-
-// Live community activity updates
-const activityFeed = document.getElementById('activity-feed');
-function addActivityLog() {
-   // const randomUser1 = `user_${Math.random().toString(36).substring(2, 4)}`;
-   // const randomUser2 = `user_${Math.random().toString(36).substring(2, 4)}`;
-   // const newLog = document.createElement('p');
-   // newLog.innerText = `${randomUser1} verified ${randomUser2} - just now`;
-   // activityFeed.insertBefore(newLog, activityFeed.firstChild);
-   if (activityFeed.children.length > 5) activityFeed.removeChild(activityFeed.lastChild);
-   setTimeout(addActivityLog, Math.random() * (1000000 - 5000) + 5000);
-}
-addActivityLog();
-
-
-
-
-function toggleEmailForm() {
-   const form = document.getElementById('email-form');
-   form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
-   if (form.style.display === 'block') {
-       form.scrollIntoView({ behavior: 'smooth' });
-   }
-}
-
-
-function submitEmail() {
-   alert("Thank you for your interest. We’ll be in touch if space becomes available.");
-   document.getElementById('email-form').style.display = 'none'; // Hides the form after submission
-}
-</script>
-
-
-</body>
-</html>
-
-
-
+// Start the server on specified port
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
