@@ -1,42 +1,236 @@
-const express = require('express');
-const cors = require('cors'); // Import CORS for cross-origin requests
-const axios = require('axios'); // Import Axios for making HTTP requests
-const app = express();
-const PORT = 3000;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VFH: f2f entrance only</title>
+    <style>
+        body {
+            font-family: monospace;
+            color: #e0e0e0;
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 50px;
+        }
+        header {
+            background-color: #242424;
+            color: #00ff7f;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        header h1 {
+            font-size: 2em;
+            margin: 0;
+        }
+        .section {
+            padding: 20px;
+            max-width: 1400px;
+            margin: auto;
+        }
+        .centered-content {
+            text-align: center;
+        }
+        .member-count {
+            background-color: #2a2a2a;
+            border-left: 5px solid #00ff7f;
+            padding: 10px;
+            margin: 20px 0;
+        }
+        .exclusive-content {
+            color: #ff6347;
+        }
+        .title {
+            color: #00ff7f;
+        }
+        footer {
+            background-color: #222;
+            color: #ccc;
+            text-align: center;
+            padding: 10px;
+        }
+        .animated-number {
+            font-size: 1.5em;
+            color: #00ff7f;
+            font-weight: bold;
+            text-shadow: 0px 0px 10px #00ff7f;
+        }
+        .more-content-hint {
+            color: #888;
+            font-style: italic;
+            margin-top: 15px;
+            opacity: 0.7;
+        }
+        .more-content-hint:hover {
+            opacity: 1;
+        }
+        .product-showcase {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            padding: 20px;
+            border-left: 5px solid #ff4500;
+            margin: 20px 0;
+        }
+        .product-showcase strong {
+            font-size: 1.5em;
+            color: #00ff7f;
+        }
+        .product-content h3 {
+            margin-top: 20px;
+            color: #ff6347;
+            font-size: 1.2em;
+        }
+        .product-content p {
+            color: #ccc;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
 
-// Enable CORS for all requests
-app.use(cors());
+<header>
+    <h1>VFH: f2f entrance only</h1>
+    <p>Verisign For Human</p>
+</header>
 
-// Middleware to parse JSON bodies in POST requests
-app.use(express.json());
+<section class="section hero centered-content">
+    <p><span class="animated-number" id="member-count">5678</span> humans in the network</p>
+</section>
 
-// Google Apps Script URL (replace with your actual deployment URL)
-const googleScriptURL = 'https://script.google.com/macros/s/AKfycbyC-apO9eANrnr7k-op3F67Snmb_oyNPVbbiaoBCr2AIpqul_FTlolanKN2kC6Qn4sFeA/exec';
-
-// Route to handle email submissions
-app.post('/submit-email', async (req, res) => {
-    const email = req.body.email; // Extract email from request body
-    
-    if (!email) {
-        // Send a 400 response if no email was provided
-        return res.status(400).send('Email is required');
-    }
-
-    try {
-        // Send the email data to Google Sheets via the Apps Script URL
-        const response = await axios.post(googleScriptURL, { email });
+<section class="section member-count">
+    <strong class="title">Community Content</strong>
+    <div id="activity-feed">
+        <p><strong>user_x7T</strong> just dropped: <em>Listen up, everyone! After an all-nighter, I finally finished creating this awesome game - Pick Deep! 💥 Think you’ve got what it takes to spot deepfakes without breaking a sweat? Now’s your chance to prove it! In just 10 minutes, you’re thrown into a real challenge, racing against the clock to separate real from fake. But beware – it’s not as easy as it sounds... 😎🔥 Click here and take the challenge</em> 
+           <a href="#" onclick="alert('Access Denied: Exclusive to Members')" style="color: #ff6347; text-decoration: underline;">Play Now 🔒</a>
+        </p>
         
-        // Log success message and send response to client
-        console.log('Email sent to Google Sheets:', response.data);
-        res.send('Email saved successfully to Google Sheets');
-    } catch (error) {
-        // Log and send an error message if the request fails
-        console.error('Error sending email to Google Sheets:', error);
-        res.status(500).send('There was an error saving the email to Google Sheets');
-    }
-});
+        <p><strong>user_m3C</strong> unleashed: <em>Ready for the ultimate voice challenge? Truth or Dare - Deepfake Edition! 🎙️ Here’s how it works: create a voice deepfake of a fellow community member, then call one of their family members and prank them into thinking it’s actually that community member on the line! Once you’re done, send the recording back to the community member you impersonated, and they’ll rate your performance. Think you’ve got the skills to pull it off? 😎 Let the games begin!</em> 
+           <a href="#" onclick="alert('Access Denied: Exclusive to Members')" style="color: #ff6347; text-decoration: underline;">Play Now 🔒</a>
+        </p>
+        
+        <!-- Hint of more content -->
+        <p class="more-content-hint">🔒 More content available for verified members</p>
+    </div>
+</section>
 
-// Start the server on specified port
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+<section class="section member-count">
+    <strong class="title">Our Goals</strong>
+    <div class="activity-feed">
+        <p><strong class="exclusive-content">🔒 Enabling Trust in Online Communication:</strong> Building a secure, verified space where online interactions remain authentic and trustworthy.</p>
+        
+        <p><strong class="exclusive-content">🛡️ Fighting Deepfake:</strong> Actively working to detect, prevent, and educate on deepfake threats, ensuring members can identify manipulated content and protect their identities.</p>
+        
+        <p><strong class="exclusive-content">🔍 Promoting Digital Integrity:</strong> Creating tools and resources to help members verify identities, build secure connections, and reduce the risk of online fraud.</p>
+    </div>
+</section>
+
+<section class="section member-count">
+    <strong class="title">The product</strong>
+    <div><br>Join the community >> Call on any platform >> Receive a message: "Verified by VFH"</div>
+    <div id="activity-feed">
+        <p>Community members rely on asymmetric encryption to ensure they’re speaking with verified identities.<br> Our technology is designed to withstand future deepfake advancements, keeping interactions secure and authentic. Here’s how it works:</p>
+        <p><strong class="exclusive-content">Asymmetric Encryption: </strong><br>When you meet a community member who grants you access, you receive a public and private key pair that secures your identity, similar to HTTPS website security.<br>As long as your private key stays safe, your identity is fully protected.</p>
+        <p><strong class="exclusive-content">Sound-Based Identity Verification: </strong><br>Sound-Based Identity Verification: Our approach mirrors HTTPS protocol but transmits data through inaudible sound waves.<br>Your device sends a random message encrypted with the other person’s public key—if they can decrypt it, you can be sure it’s them.</p>
+        <p><strong class="exclusive-content">"VeriSign for Humans": </strong><br>Like VeriSign built trust for websites, our technology lets the community control who joins, building a safe network of verified people.<br>Each new member is approved by others, and the closer someone is to your network, the higher their trust score.<br>Our goal is to create a system where every person, business, or machine has a clear, reliable ID—so you can always tell what's real and what isn’t.</p>
+    </div>
+</section>
+
+<section class="section member-count">
+    <p><strong class="title">Rules</strong></p>
+    <div id="activity-feed">
+        <p><strong class="exclusive-content">F2F:</strong> <em>F2F verification only --> Phone to Phone</em></p>
+        <p><strong class="exclusive-content">Access limits:</strong> <em>Can add only one member per day</em></p>
+        <p><strong class="exclusive-content">Trust Score:</strong> Each member’s trust score reflects their connection level: direct, face-to-face invites get top scores, while indirect connections score lower. Community Leaders hold elevated scores as verified, trusted members</p>
+        
+        <!-- Visual Aid: Node-based graphic -->
+        <div id="activity-feed">
+            <svg width="400" height="200">
+                <!-- Community Leader node with high trust score -->
+                <circle cx="150" cy="50" r="20" fill="#00ff7f" />
+                <text x="130" y="25" fill="#ffffff">Community Leader</text>
+                <text x="180" y="65" fill="#00ff7f">High Trust</text>
+                
+                <!-- Direct connection node with high score -->
+                <circle cx="80" cy="150" r="15" fill="#00aaff" />
+                <text x="40" y="180" fill="#00aaff">Direct Connection</text>
+                
+                <!-- Indirect connection with lower score -->
+                <circle cx="220" cy="150" r="10" fill="#aaaaaa" />
+                <text x="220" y="180" fill="#aaaaaa">Indirect Connection</text>
+                
+                <!-- Connection lines -->
+                <!-- Line from Community Leader to Direct Connection -->
+                <line x1="135.86" y1="69.14" x2="93.39" y2="132.68" stroke="#00ff7f" stroke-width="2" />
+                
+                <!-- Line from Community Leader to Indirect Connection -->
+                <line x1="164.14" y1="69.14" x2="206.61" y2="132.68" stroke="#aaaaaa" stroke-width="1" />
+            </svg>
+        </div>
+        
+    </div>
+</section>
+
+
+<footer style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #222; color: #ccc; text-align: center; padding: 10px;">
+    <p>VFH &copy; 2024 | <a href="#" onclick="toggleEmailForm(event)" style="color: #00ff7f;">Contact</a></p>
+</footer>
+
+<!-- Email Registration Form -->
+<div id="email-form" style="display: none; background-color: #2a2a2a; padding: 20px; border-radius: 10px; max-width: 400px; margin: 20px auto; text-align: center;">
+    <p>This area is restricted to community members only, but you can try to leave your email.</p>
+    <input type="email" placeholder="Your Email" required style="padding: 10px; width: calc(100% - 20px); margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    <button onclick="submitEmail()" style="background-color: #ff4500; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+</div>
+
+<script>
+   // Incrementing member count animation
+const memberCountElem = document.getElementById('member-count');
+let memberCount = parseInt(memberCountElem.innerText);
+
+function incrementMemberCount() {
+    memberCount += 1;
+    memberCountElem.innerText = memberCount.toLocaleString();
+    setTimeout(incrementMemberCount, 1800000); 
+}
+incrementMemberCount();
+
+function toggleEmailForm(event) {
+    event.preventDefault(); // Prevents page from jumping to the top
+    const form = document.getElementById('email-form');
+    form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
+    if (form.style.display === 'block') {
+        form.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function submitEmail() {
+    const emailInput = document.querySelector('#email-form input[type="email"]').value;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(emailInput)) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+
+    // Send email to the server
+    fetch('http://localhost:3000/submit-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: emailInput })
+    })
+    .then(response => response.text())
+    .then(message => {
+        alert(message);
+        document.getElementById('email-form').style.display = 'none';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an issue submitting your email. Please try again.');
+    });
+}
+
+
+</script>
+
+</body>
