@@ -28,11 +28,11 @@ app.post('/submit-email', async (req, res) => {
         
         // Log success message and send response to client
         console.log('Email sent to Google Sheets:', response.data);
-        res.send('Email saved successfully to Google Sheets');
+        res.send('Email saved successfully');
     } catch (error) {
         // Log and send an error message if the request fails
         console.error('Error sending email to Google Sheets:', error);
-        res.status(500).send('There was an error saving the email to Google Sheets');
+        res.status(500).send('There was an error saving the email');
     }
 });
 
