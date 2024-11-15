@@ -4,6 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VFH: f2f entrance only</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-74NN43WTL7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-74NN43WTL7');
+        // Function to track button clicks
+        function trackButtonClick(buttonGroup, buttonName) {
+            gtag('event', 'button_click', {
+                'event_category': buttonGroup,
+                'event_label': buttonName
+            });
+        }
+    </script>
+
+    <!-- Hotjar Tracking Code for Site 5208950 (name missing) -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:5208950,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+
     <style>
         body {
             font-family: monospace;
@@ -104,11 +133,12 @@
     <strong class="title">Community Content</strong>
     <div id="activity-feed">
         <p><strong>user_x7T</strong> just dropped: <em>Listen up, everyone! After an all-nighter, I finally finished creating this awesome game - Pick Deep! 💥 Think you’ve got what it takes to spot deepfakes without breaking a sweat? Now’s your chance to prove it! In just 10 minutes, you’re thrown into a real challenge, racing against the clock to separate real from fake. But beware – it’s not as easy as it sounds... 😎🔥 Click here and take the challenge</em> 
-           <a href="#" onclick="alert('Access Denied: Exclusive to Members')" style="color: #ff6347; text-decoration: underline;">Play Now 🔒</a>
+           <a href="#" onclick="trackButtonClick('Game', 'Pick Deep Play Now'); alert('Access Denied: Exclusive to Members')" style="color: #ff6347; text-decoration: underline;">Play Now 🔒</a>
+           
         </p>
         
         <p><strong>user_m3C</strong> unleashed: <em>Ready for the ultimate voice challenge? Truth or Dare - Deepfake Edition! 🎙️ Here’s how it works: create a voice deepfake of a fellow community member, then call one of their family members and prank them into thinking it’s actually that community member on the line! Once you’re done, send the recording back to the community member you impersonated, and they’ll rate your performance. Think you’ve got the skills to pull it off? 😎 Let the games begin!</em> 
-           <a href="#" onclick="alert('Access Denied: Exclusive to Members')" style="color: #ff6347; text-decoration: underline;">Play Now 🔒</a>
+           <a href="#" onclick="trackButtonClick('Game', 'Truth or Dare'); alert('Access Denied: Exclusive to Members')" style="color: #ff6347; text-decoration: underline;">Play Now 🔒</a>
         </p>
         
         <!-- Hint of more content -->
@@ -175,7 +205,7 @@
 
 
 <footer style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #222; color: #ccc; text-align: center; padding: 10px;">
-    <p>VFH &copy; 2024 | <a href="#" onclick="toggleEmailForm(event)" style="color: #00ff7f;">Contact</a></p>
+    <p>VFH &copy; 2024 | <a href="#" onclick="trackButtonClick('Footer', 'Contact Button'); toggleEmailForm(event);" style="color: #00ff7f;">Contact</a></p>
 </footer>
 
 <!-- Email Registration Form -->
@@ -216,7 +246,7 @@ function submitEmail() {
     }
 
     // Send email to the server
-    fetch('https://verisign-server.onrender.com/submit-email', {
+    fetch('http://localhost:3000/submit-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailInput })
