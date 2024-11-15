@@ -216,16 +216,17 @@
 </div>
 
 <script>
-   // Incrementing member count animation
+// Incrementing member count animation
 const memberCountElem = document.getElementById('member-count');
-let memberCount = parseInt(memberCountElem.innerText);
+    let memberCount = parseInt(memberCountElem.innerText);
 
-function incrementMemberCount() {
-    memberCount += 1;
-    memberCountElem.innerText = memberCount.toLocaleString();
-    setTimeout(incrementMemberCount, 1800000); 
-}
-incrementMemberCount();
+    function incrementMemberCount() {
+        memberCount += 1; // Increment by 1
+        memberCountElem.innerText = memberCount.toLocaleString();
+        setTimeout(incrementMemberCount, 7200000); // Schedule next increment in 2 hours (7200000 ms)
+    }
+    
+    incrementMemberCount(); // Start the incrementing function
 
 function toggleEmailForm(event) {
     event.preventDefault(); // Prevents page from jumping to the top
